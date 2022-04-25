@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #aaa;
+  margin-bottom: 15px;
+  padding: 5px;
+
+  a {
+    font-weight: bold;
+    color: orangered;
+  }
+}

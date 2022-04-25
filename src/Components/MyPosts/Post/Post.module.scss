@@ -1,0 +1,30 @@
+.post {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  background: #ccc;
+  margin-bottom: 15px;
+
+  &__image {
+    width: 55px;
+
+    & img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  &__text {
+    width: calc(100% - 70px);
+  }
+
+  &__message {
+    color: #393939;
+  }
+
+  &__likesCount {
+    border: 1px solid antiquewhite;
+  }
+}

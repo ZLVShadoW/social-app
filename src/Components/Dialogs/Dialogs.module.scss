@@ -1,0 +1,21 @@
+.dialogs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+
+  &__users {
+    display: flex;
+    justify-content: flex-start;
+    width: 200px;
+    background: aliceblue;
+  }
+
+  &__messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: calc(100% - 225px);
+    background: azure;
+  }
+}
