@@ -3,6 +3,7 @@ import cn from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
 import {DialogType, MessageType} from '../../redux/reducers/dialogs-reducer';
+import { Navigate } from 'react-router-dom';
 
 
 type DialogsPropsType = {
@@ -11,6 +12,7 @@ type DialogsPropsType = {
     dialogs: Array<DialogType>;
     messages: Array<MessageType>;
     newMessageText: string;
+    isAuth: boolean
 }
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -24,6 +26,8 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsEl = props.dialogs.map(dialog => <DialogItem key={dialog.id} {...dialog} />)
     const messagesEl = props.messages.map(message => <Message key={message.id} message={message.message}/>)
+
+    if (!props.isAuth) return <Navigate to={'/login'} />
 
     return (
         <div className={cn.dialogs}>

@@ -13,7 +13,9 @@ type MyPostsPropsType = {
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
-    let newPostEl = React.useRef<HTMLTextAreaElement | null>(null)
+    // let newPostEl = React.useRef<HTMLTextAreaElement | null>(null)
+
+    let newPostEl: React.RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addNewPost = () => {
         // const newPost = newPostEl.current?.value
@@ -29,6 +31,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         //     newPost && props.dispatch(addPostAC(newPost))
         //     newPostEl.current.value = ''
         // }
+
         if (newPostEl.current) {
             const newPost = newPostEl.current.value
             newPost && props.addPost(newPost)

@@ -6,10 +6,9 @@ import {News} from '../News/News';
 import {DialogsContainer} from '../Dialogs/DialogsContainer';
 import UsersContainer from '../Users/UsersContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
+import {Login} from '../Login';
 
-type ContentPropsType = {
-
-}
+type ContentPropsType = {}
 
 
 export const Content: React.FC<ContentPropsType> = (props) => {
@@ -21,12 +20,14 @@ export const Content: React.FC<ContentPropsType> = (props) => {
             nostrum provident quis quod rem, soluta ullam. Ab adipisci at aut distinctio dolore libero nihil, nulla
             optio, porro quas rerum sapiente, sint ullam? Autem, obcaecati!
             <Routes>
-                <Route path={'/profile'} element={<ProfileContainer />}/>
-                <Route path={'/profile/:userId'} element={<ProfileContainer />}/>
-                <Route path={'/dialogs/*'} element={<DialogsContainer />}/>
-                <Route path={'/users'} element={<UsersContainer />}/>
+                <Route path={'/profile'} element={<ProfileContainer/>}/>
+                <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
+                <Route path={'/dialogs/*'} element={<DialogsContainer/>}/>
+                <Route path={'/users'} element={<UsersContainer/>}/>
                 <Route path={'/news'} element={<News/>}/>
-                <Route path={'/'} element={<div style={{border: '1px solid red', margin: 15}}>settings: home-url '/'</div>}/>
+                <Route path={'/'}
+                       element={<div style={{border: '1px solid red', margin: 15}}>settings: home-url '/'</div>}/>
+                <Route path={'/login'} element={<Login/>}/>
             </Routes>
         </div>
     );

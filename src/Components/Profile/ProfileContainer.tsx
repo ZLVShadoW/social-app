@@ -1,42 +1,45 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reducers';
-import axios from 'axios';
 import {Profile} from './Profile';
-import {setUserProfile, ProfileUserType} from '../../redux/reducers/profile-reducer';
+import {ProfileUserType, getUserProfile} from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
+import { Navigate } from 'react-router-dom';
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType & {params: {userId: string}}, {}>{
+class ProfileContainer extends React.Component<ProfileContainerPropsType & { params: { userId: string } }, {}> {
     componentDidMount() {
-    const { userId } = this.props.params
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId ? userId : '2'}`)
-            .then(response => this.props.setUserProfile(response.data))
+        const {userId} = this.props.params
+        this.props.getUserProfile(Number(userId))
     }
 
     render() {
 
+        if(!this.props.isAuth) return <Navigate to={'/login'} />
+
         //TODO прокидывание пропсов спредом, принятие пропсов детьми, что с типом null
 
         // return <Profile {...this.props} />
-        return <Profile {...this.props} profile={this.props.profile} />
+        return <Profile {...this.props} profile={this.props.profile}/>
     }
 }
 
 type MapStatePropsType = {
     profile: ProfileUserType | null
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileUserType) => void
+    getUserProfile: (userId: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {setUserProfile})
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {getUserProfile})
 (withCustomWithRouter(ProfileContainer))

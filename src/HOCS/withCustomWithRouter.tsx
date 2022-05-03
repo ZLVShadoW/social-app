@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 // export const CustomWithRouter = (Component: React.ClassicComponent): any => {
 
 //TODO что вместо any
-export const withCustomWithRouter = <P extends object>(Component: React.ComponentType<P>): any => {
+export const withCustomWithRouter = <P extends object>(Component: React.ComponentType<P>): React.FC => {
 
     return function WithProps (props: any) {
         const params = useParams()

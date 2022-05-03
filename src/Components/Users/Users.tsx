@@ -14,9 +14,8 @@ type UsersPropsType = {
     followingProgress: Array<number | undefined>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
     openCurrentPage: (page: number) => void
-    toggleIsFollowingProgress: (userId: number, isFetching: boolean) => void
+    // toggleIsFollowingProgress: (userId: number, isFetching: boolean) => void
 }
 
 
@@ -56,26 +55,32 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                         </Link>
                         <div>
                             {user.followed
-                                ? <button disabled={props.followingProgress.some(el => el === user.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(user.id, true)
-                                    usersAPI.unfollow(user.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.unfollow(user.id)
-                                        }
-                                        props.toggleIsFollowingProgress(user.id, false)
-                                    })
+                                ? <button disabled={props.followingProgress.some(el => el === user.id)}
+                                          onClick={() => {
+                                              props.unfollow(user.id)
+                                    // props.toggleIsFollowingProgress(user.id, true)
+                                    // usersAPI.unfollow(user.id).then(data => {
+                                    //     if (data.resultCode === 0) {
+                                    //         props.unfollow(user.id)
+                                    //     }
+                                    //     props.toggleIsFollowingProgress(user.id, false)
+                                    // })
+
                                 }}>
                                     unfollow</button>
 
 
-                                : <button disabled={props.followingProgress.some(el => el === user.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(user.id, true)
-                                    usersAPI.follow(user.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.follow(user.id)
-                                        }
-                                        props.toggleIsFollowingProgress(user.id, false)
-                                    })
+                                : <button disabled={props.followingProgress.some(el => el === user.id)}
+                                          onClick={() => {
+                                              props.follow(user.id)
+                                    // props.toggleIsFollowingProgress(user.id, true)
+                                    // usersAPI.follow(user.id).then(data => {
+                                    //     if (data.resultCode === 0) {
+                                    //         props.follow(user.id)
+                                    //     }
+                                    //     props.toggleIsFollowingProgress(user.id, false)
+                                    // })
+
                                 }}>follow</button>
                             } : {idx + 1}
 
