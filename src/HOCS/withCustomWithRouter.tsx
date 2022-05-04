@@ -14,3 +14,34 @@ export const withCustomWithRouter = <P extends object>(Component: React.Componen
         )
     }
 }
+
+
+// export const withCustomWithRouter = <P extends object>(Component: React.ComponentType<P>): React.FC<P> => {
+//
+//     const WithProps: React.FC<P> = (props) => {
+//         const params = useParams()
+//         return (
+//             <Component {...props} params={params} />
+//         )
+//     }
+//     return WithProps
+// }
+
+// export const withCustomWithRouter = <P extends object>(Component: React.ComponentType<P>): React.FC<P> => {
+//
+//     return function WithProps (props) {
+//         const params = useParams()
+//         return (
+//             <Component {...props} params={params} />
+//         )
+//     }
+// }
+
+
+
+
+
+
+
+
+

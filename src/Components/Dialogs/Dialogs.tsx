@@ -27,8 +27,6 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const dialogsEl = props.dialogs.map(dialog => <DialogItem key={dialog.id} {...dialog} />)
     const messagesEl = props.messages.map(message => <Message key={message.id} message={message.message}/>)
 
-    if (!props.isAuth) return <Navigate to={'/login'} />
-
     return (
         <div className={cn.dialogs}>
             <div className={cn.dialogs__users}>

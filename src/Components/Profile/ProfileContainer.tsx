@@ -4,7 +4,7 @@ import {AppStateType} from '../../redux/reducers';
 import {Profile} from './Profile';
 import {ProfileUserType, getUserProfile} from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
-import { Navigate } from 'react-router-dom';
+import {withAuthRedirect} from '../../HOCS/withAuthRedirect';
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -16,8 +16,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
 
     render() {
 
-        if(!this.props.isAuth) return <Navigate to={'/login'} />
-
         //TODO прокидывание пропсов спредом, принятие пропсов детьми, что с типом null
 
         // return <Profile {...this.props} />
@@ -27,7 +25,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
 
 type MapStatePropsType = {
     profile: ProfileUserType | null
-    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -36,10 +33,9 @@ type MapDispatchPropsType = {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        profile: state.profilePage.profile
     }
 }
 
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {getUserProfile})
-(withCustomWithRouter(ProfileContainer))
+export default withAuthRedirect(connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {getUserProfile})
+(withCustomWithRouter(ProfileContainer)))
