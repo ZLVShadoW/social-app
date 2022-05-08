@@ -4,7 +4,6 @@ import imgSrc from '../../assets/img/user.png';
 
 import cn from './Users.module.scss'
 import {Link} from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 
 type UsersPropsType = {
     users: Array<UserType>

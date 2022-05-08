@@ -10,6 +10,7 @@ import {
 } from '../../redux/reducers/users-reducer';
 import React from 'react';
 import {Preloader} from '../Preloader/Preloader';
+import {compose} from 'redux';
 
 
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
@@ -128,8 +129,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 //     }
 // }
 
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps,
-    {
-        follow, unfollow, setCurrentPage,
+export default compose(
+    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
         getUsers
-    })(UsersContainer)
+    })
+)
+(UsersContainer)
+

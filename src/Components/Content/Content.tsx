@@ -6,7 +6,7 @@ import {News} from '../News/News';
 import {DialogsContainer} from '../Dialogs/DialogsContainer';
 import UsersContainer from '../Users/UsersContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
-import {Login} from '../Login';
+import {Login} from '../Login/Login';
 
 type ContentPropsType = {}
 
@@ -34,8 +34,6 @@ export const Content: React.FC<ContentPropsType> = (props) => {
 }
 
 //TODO FIND HOW TO BE WITH URL; CHILD IN DIALOGITEM ---
-//TODO переместить типы из старого state
-
 
 //TODO MyPotsContainer - определение типа dispatch (из redux)
-//TODO 64 DONE ... MOVE TO NEXT VIDEO - 65 ...
+//TODO 71 DONE ... MOVE TO NEXT VIDEO - 72 ...

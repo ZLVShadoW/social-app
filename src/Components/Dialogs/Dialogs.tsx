@@ -3,8 +3,6 @@ import cn from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
 import {DialogType, MessageType} from '../../redux/reducers/dialogs-reducer';
-import { Navigate } from 'react-router-dom';
-
 
 type DialogsPropsType = {
     addMessage: () => void;

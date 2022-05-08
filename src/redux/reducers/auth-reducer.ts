@@ -14,6 +14,7 @@ let initialState: AuthType = {
   id: null,
   login: null,
   email: null,
+  //TODO ЗАМЕНИТЬ НА FALSE
   isAuth: false
 }
 
