@@ -9,32 +9,29 @@ export const Login = () => {
             rememberMe: false,
         },
         onSubmit: values => {
-            console.log(values)
             // alert(JSON.stringify(values, null, 2));
         }
     })
-
-    console.log(formik)
 
     return (
         <div>
             <form onSubmit={formik.handleSubmit}>
                 <div>
-                    <label htmlFor="email">
+                    <label htmlFor={'email'}>
                         <input type={'text'} name={'email'} id={'email'}
                                onChange={formik.handleChange} value={formik.values.email}
                         />
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="password">
+                    <label htmlFor={'password'}>
                         <input type={'text'} name={'password'} id={'password'}
                                onChange={formik.handleChange} value={formik.values.password}
                         />
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="rememberMe">
+                    <label htmlFor={'rememberMe'}>
                         <input type={'checkbox'} name={'rememberMe'} id={'rememberMe'}
                                onChange={formik.handleChange} checked={formik.values.rememberMe}
                         />

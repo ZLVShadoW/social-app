@@ -3,24 +3,16 @@ import cn from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
 import {DialogType, MessageType} from '../../redux/reducers/dialogs-reducer';
+import {DialogFormTextarea} from './DialogFormTextarea';
 
 type DialogsPropsType = {
     addMessage: () => void;
-    updateNewMessageText: (value: string) => void;
     dialogs: Array<DialogType>;
     messages: Array<MessageType>;
-    newMessageText: string;
     isAuth: boolean
 }
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
-
-    const handlerTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(e.currentTarget.value)
-    }
-    const addMessage = () => {
-        props.addMessage()
-    }
 
     const dialogsEl = props.dialogs.map(dialog => <DialogItem key={dialog.id} {...dialog} />)
     const messagesEl = props.messages.map(message => <Message key={message.id} message={message.message}/>)
@@ -35,11 +27,9 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             <div className={cn.dialogs__messages}>
                 <div>{messagesEl}</div>
                 <div>
-                    <textarea
-                        value={props.newMessageText}
-                        onChange={handlerTextareaChange}
-                        placeholder={'Add your message'}/>
-                    <button onClick={addMessage}>Send</button>
+
+                    {/*//TODO вариант форму родителем сделать; дети (children) для сборки формы*/}
+                    <DialogFormTextarea addMessage={props.addMessage} />
                 </div>
             </div>
         </div>

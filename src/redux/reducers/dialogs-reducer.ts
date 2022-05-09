@@ -12,7 +12,6 @@ export type MessageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>;
     messages: Array<MessageType>;
-    newMessageText: string;
 }
 
 let initialState: DialogsPageType = {
@@ -32,35 +31,20 @@ let initialState: DialogsPageType = {
             id: 5,
             message: 'and one more message lorem ipsum dolor it`s ok. here lorem is not work, so ... bla-bla-bla sg f gdf df gdfgxg d d dfj gdkfj gdk gkd jgkd jdk fkdj kdj k'
         }
-    ],
-    newMessageText: ''
+    ]
 }
 
 const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT': {
+        case 'ADD-MESSAGE': {
+            let newMessage: MessageType = {
+                id: 7,
+                message: action.messageText
+            }
             return {
                 ...state,
-                newMessageText: action.newMessageText
+                messages: [...state.messages, newMessage]
             }
-        }
-        case 'ADD-MESSAGE': {
-            let newTxt = state.newMessageText.trim()
-            if (newTxt) {
-                let newMessage: MessageType = {
-                    id: 7,
-                    message: newTxt
-                }
-                return {
-                    ...state,
-                    newMessageText: '',
-                    messages: [...state.messages, newMessage]
-                }
-            } else return {
-                ...state,
-                newMessageText: ''
-            }
-
         }
         default:
             return state
@@ -69,8 +53,4 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
 
 export default dialogsReducer;
 
-
-export const updateNewMessageTextAC = (message: string) => {
-    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: message} as const
-}
-export const addMessageAC = () => ({type: 'ADD-MESSAGE'} as const)
+export const addMessageAC = (messageText: string) => ({type: 'ADD-MESSAGE', messageText} as const)

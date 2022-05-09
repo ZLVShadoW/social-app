@@ -5,8 +5,7 @@ import cn from './Navbar.module.scss'
 
 export const Navbar = () => {
 
-    //TODO https://reactrouter.com/docs/en/v6/api#navlink  ----------------->>>   how to type ???
-    // const cln = ({isActive}: { isActive: boolean }) => isActive ? `${cn.active}` : `${cn.link}`
+    //TODO https://reactrouter.com/docs/en/v6/api#navlink
     const cln = ({isActive}: { isActive: boolean }) => isActive ? `${cn.default} ${cn.active}` : `${cn.default}`
 
     return (
