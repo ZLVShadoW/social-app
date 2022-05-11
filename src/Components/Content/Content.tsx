@@ -27,7 +27,7 @@ export const Content: React.FC<ContentPropsType> = (props) => {
                 <Route path={'/news'} element={<News/>}/>
                 <Route path={'/'}
                        element={<div style={{border: '1px solid red', margin: 15}}>settings: home-url '/'</div>}/>
-                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/login'} element={<Login />}/>
             </Routes>
         </div>
     );

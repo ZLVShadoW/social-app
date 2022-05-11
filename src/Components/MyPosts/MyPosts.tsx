@@ -15,7 +15,7 @@ type MyPostsPropsType = {
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     // let newPostEl = React.useRef<HTMLTextAreaElement | null>(null)
-    let newPostEl: React.RefObject<HTMLTextAreaElement> = React.createRef()
+    // let newPostEl: React.RefObject<HTMLTextAreaElement> = React.createRef()
 
     // const addNewPost = () => {
     //     // ------------------------------------------------- вариант 1 native
