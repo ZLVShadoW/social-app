@@ -10,14 +10,15 @@ export const PostFormTextarea: React.FC<PostFormTextareaPropsType> = (props) => 
         initialValues: {
             post: ''
         },
-        onSubmit: (values, {resetForm}) => {
+        onSubmit: (values, {resetForm, setErrors}) => {
             props.addPost(values.post)
             // formik.resetForm({}) без принятия resetForm параметром после value
             // resetForm({})
             resetForm({values: {post: ''}})
+            // setErrors("values")
         }
     })
-    console.log(formik.getFieldProps('post'))
+    console.log(formik)
     return (
         <form onSubmit={formik.handleSubmit}>
             <label htmlFor={'post'}>

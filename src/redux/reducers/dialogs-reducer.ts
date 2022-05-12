@@ -1,6 +1,3 @@
-import {ActionsType} from './actions-types';
-
-
 export type DialogType = {
     id: number;
     name: string;
@@ -34,7 +31,9 @@ let initialState: DialogsPageType = {
     ]
 }
 
-const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
+type DialogsReducerActionsType = AddMessageActionType
+
+const dialogsReducer = (state = initialState, action: DialogsReducerActionsType): DialogsPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE': {
             let newMessage: MessageType = {
@@ -52,5 +51,11 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
 }
 
 export default dialogsReducer;
+
+
+// ----------- actions -----------
+
+
+type AddMessageActionType = ReturnType<typeof addMessageAC>
 
 export const addMessageAC = (messageText: string) => ({type: 'ADD-MESSAGE', messageText} as const)
