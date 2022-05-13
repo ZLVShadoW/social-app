@@ -7,8 +7,8 @@ import {ProfileUserType} from '../../redux/reducers/profile-reducer';
 
 type ProfilePropsType = {
     profile: ProfileUserType | null
-    status: string
-    updateStatus: (statusText: string) => void
+    status: string | null
+    updateStatus: (statusText: string | null) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {

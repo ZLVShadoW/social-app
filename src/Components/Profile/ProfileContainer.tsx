@@ -29,13 +29,13 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
 
 type MapStatePropsType = {
     profile: ProfileUserType | null
-    status: string
+    status: string | null
 }
 
 type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
-    updateStatus: (statusText: string) => void
+    updateStatus: (statusText: string | null) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {

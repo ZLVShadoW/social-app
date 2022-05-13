@@ -6,8 +6,8 @@ import {ProfileStatus} from './ProfileStatus';
 
 type ProfileInfoPropsType = {
     profile: ProfileUserType | null
-    status: string
-    updateStatus: (statusText: string) => void
+    status: string | null
+    updateStatus: (statusText: string | null) => void
 }
 
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {

@@ -10,7 +10,7 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>;
     profile: ProfileUserType | null
-    status: string
+    status: string | null
 }
 
 //--------------------------------------------------------------
@@ -55,7 +55,7 @@ let initialState: ProfilePageType = {
         {id: 3, message: 'third text written by introvert :)))', likesCount: 1}
     ],
     profile: null,
-    status: ''
+    status: null
 }
 
 type ProfileReducerActionsType = AddPostACActionType
@@ -101,7 +101,7 @@ export const addPostAC = (message: string) => {
     return {type: 'ADD-POST', postMessage: message} as const
 }
 export const setUserProfile = (profile: ProfileUserType) => ({type: 'SET_USER_PROFILE', profile}) as const
-export const setStatus = (statusText: string) => ({type: 'SET_STATUS', statusText}) as const
+export const setStatus = (statusText: string | null) => ({type: 'SET_STATUS', statusText}) as const
 
 
 // ----------- Thunk -----------
@@ -118,7 +118,7 @@ export const getStatus = (userId: number): ThunkType => (dispatch: ThunkDispatch
     profileAPI.getStatus(userId)
         .then(res => dispatch(setStatus(res.data)))
 }
-export const updateStatus = (statusText: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
+export const updateStatus = (statusText: string | null): ThunkType => (dispatch: ThunkDispatchActionType) => {
     profileAPI.updateStatus(statusText)
         .then(res => {
             if (res.data.resultCode === 0) {

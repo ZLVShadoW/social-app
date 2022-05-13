@@ -1,12 +1,12 @@
 import React from 'react';
-import {UserType} from '../../redux/reducers/users-reducer';
 import imgSrc from '../../assets/img/user.png';
 
 import cn from './Users.module.scss'
 import {Link} from 'react-router-dom';
+import {UserResponseType} from '../../api/api';
 
 type UsersPropsType = {
-    users: Array<UserType>
+    users: Array<UserResponseType>
     totalUsersCount: number
     pageSize: number
     currentPage: number,

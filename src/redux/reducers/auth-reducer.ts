@@ -1,4 +1,4 @@
-import {authAPI} from '../../api/api';
+import {authAPI, ResultCodeType} from '../../api/api';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AppStateType} from './index';
 
@@ -51,17 +51,18 @@ type ThunkDispatchActionType = ThunkDispatch<AppStateType, unknown, AuthReducerA
 export const getAuthUserData = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
     authAPI.me()
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCodeType.success) {
                 const {id, login, email} = res.data.data
                 dispatch(setAuthUserData(id, login, email, true))
             }
         })
 }
-export const login = (data: { email: string, password: string, rememberMe: boolean }): ThunkType => (dispatch: ThunkDispatchActionType) => {
+export const login = (data: { email: string, password: string, rememberMe: boolean }): ThunkType =>
+    (dispatch: ThunkDispatchActionType) => {
     const {email, password, rememberMe} = data
     authAPI.login(email, password, rememberMe)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCodeType.success) {
                 dispatch(getAuthUserData())
             }
         })
@@ -69,7 +70,7 @@ export const login = (data: { email: string, password: string, rememberMe: boole
 export const logout = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
     authAPI.logout()
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCodeType.success) {
                 dispatch(setAuthUserData(null, null, null, false))
             }
         })

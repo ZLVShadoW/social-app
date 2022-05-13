@@ -1,8 +1,8 @@
 import React from 'react';
 
 type ProfileStatusType = {
-    status: string
-    updateStatus: (statusText: string) => void
+    status: string | null
+    updateStatus: (statusText: string | null) => void
 }
 
 export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
@@ -17,7 +17,8 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const onBlurHandler = () => {
         setIsEditMode(false)
         if (props.status === statusText) return
-        props.updateStatus(statusText.trim())
+        props.updateStatus(statusText!.trim())
+        //TODO как быть с null (в редьюсере обработать. если null, то пустую строку засетать)
     }
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +31,7 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
                 ? <span onDoubleClick={onDoubleClickHandler}>
                     {props.status ? props.status : <span style={{color: '#999'}}>change status</span>}
                   </span>
-                : <input value={statusText}
+                : <input value={statusText!}
                          onBlur={onBlurHandler}
                          onChange={onChangeHandler}
                          autoFocus={true}/>
