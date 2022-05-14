@@ -1,8 +1,8 @@
 import React from 'react';
 import avatar from '../../../assets/img/user.png';
-import {ProfileUserType} from '../../../redux/reducers/profile-reducer';
 import {Preloader} from '../../Preloader/Preloader';
 import {ProfileStatus} from './ProfileStatus';
+import {ProfileUserType} from '../../../api/api';
 
 type ProfileInfoPropsType = {
     profile: ProfileUserType | null

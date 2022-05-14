@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import {Preloader} from '../Preloader/Preloader';
 import {compose} from 'redux';
-import {UserResponseType} from '../../api/api';
+import {UserType} from '../../api/api';
 
 
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
@@ -82,7 +82,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
 }
 
 type MapStatePropsType = {
-    users: Array<UserResponseType>
+    users: Array<UserType>
     totalUsersCount: number
     pageSize: number
     currentPage: number

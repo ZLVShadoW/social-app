@@ -3,10 +3,10 @@ import imgSrc from '../../assets/img/user.png';
 
 import cn from './Users.module.scss'
 import {Link} from 'react-router-dom';
-import {UserResponseType} from '../../api/api';
+import {UserType} from '../../api/api';
 
 type UsersPropsType = {
-    users: Array<UserResponseType>
+    users: Array<UserType>
     totalUsersCount: number
     pageSize: number
     currentPage: number,

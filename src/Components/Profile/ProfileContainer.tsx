@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reducers';
 import {Profile} from './Profile';
-import {ProfileUserType, getUserProfile, getStatus, updateStatus} from '../../redux/reducers/profile-reducer';
+import {getUserProfile, getStatus, updateStatus} from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
 import {withAuthRedirect} from '../../HOCS/withAuthRedirect';
 import {compose} from 'redux';
+import {ProfileUserType} from '../../api/api';
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -46,7 +47,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
         getUserProfile,
         getStatus,

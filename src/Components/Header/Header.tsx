@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderType> = ({isAuth, login, logout}) => {
                 <div>
                     {
                         isAuth
-                            ? <>{`hi, ${login} `}
+                            ? <>hi, {` ${login} `}
                                 <button onClick={() => dispatch(logout())}>выйти</button>
                             </>
                             : <Link to={'/login'}>Login</Link>

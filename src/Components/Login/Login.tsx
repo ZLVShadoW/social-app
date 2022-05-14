@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthType, login} from '../../redux/reducers/auth-reducer';
 import {AppStateType} from '../../redux/reducers';
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 type InitialValues = {
     email: string
@@ -14,12 +14,13 @@ type InitialValues = {
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().required('Required').typeError('Incorrect password')
+    password: Yup.string().min(6, 'min symbols is 6').required('Required').typeError('Incorrect password')
 })
 
 export const Login = () => {
     const dispatch = useDispatch()
     const {isAuth} = useSelector<AppStateType, AuthType>(state => state.auth)
+    const authError = useSelector<AppStateType, string | null>(state => state.auth.authError)
 
     const initialValues: InitialValues = {
         email: '',
@@ -32,9 +33,7 @@ export const Login = () => {
         // resetForm({}) // необязательно думаю, redirect будет
     }
 
-    if (isAuth) return <Navigate to={'/profile'} />
-
-
+    if (isAuth) return <Navigate to={'/profile'}/>
 
     return (
         <div>
@@ -56,6 +55,7 @@ export const Login = () => {
                             <Field type={'checkbox'} name={'rememberMe'} id={'rememberMe'}/>
                         </label>
                     </div>
+                    {authError && <div style={{color: 'red', border: '1px solid red'}}>{authError}</div>}
                     <button type={'submit'}>Login</button>
                 </Form>
             </Formik>

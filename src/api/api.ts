@@ -26,13 +26,13 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(userId: number) {
-        return instance.get(`profile/${userId}`)
+        return instance.get<ProfileUserType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
         return instance.get<string | null>(`/profile/status/${userId}`)
     },
     updateStatus(statusText: string | null) {
-        return instance.put(`/profile/status`, {status: statusText})
+        return instance.put<CommonResponseType>(`/profile/status`, {status: statusText})
     }
 }
 
@@ -41,7 +41,7 @@ export const authAPI = {
         return instance.get<CommonResponseType<MeResponseType>>(`auth/me`)
     },
     login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
         return instance.delete<CommonResponseType>(`auth/login`)
@@ -73,7 +73,7 @@ type PhotosType = {
     large: string | null
 }
 
-export type UserResponseType = {
+export type UserType = {
     name: string
     id: number
     photos: PhotosType
@@ -84,7 +84,7 @@ export type UserResponseType = {
 
 type GetUsersResponseType = {
     error: null
-    items: Array<UserResponseType>
+    items: Array<UserType>
     totalCount: number
 }
 
@@ -92,4 +92,25 @@ type MeResponseType = {
     email: string
     id: number
     login: string
+}
+
+type ContactsType = {
+    facebook: null | string
+    github: null | string
+    instagram: null | string
+    mainLink: null | string
+    twitter: null | string
+    vk: null | string
+    website: null | string
+    youtube: null | string
+}
+
+export type ProfileUserType = {
+    aboutMe: null | string
+    contacts: ContactsType
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: null | string
+    photos: PhotosType
+    userId: number
 }
