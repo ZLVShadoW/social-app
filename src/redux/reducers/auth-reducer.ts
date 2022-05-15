@@ -22,7 +22,7 @@ let initialState: AuthType = {
 type AuthReducerActionsType = SetAuthUserDataActionType
     | SetAuthError
 
-export const setAuthReducer = (state = initialState, action: AuthReducerActionsType): AuthType => {
+const authReducer = (state = initialState, action: AuthReducerActionsType): AuthType => {
     switch (action.type) {
         case 'AUTH/SET_AUTH_USER_DATA': {
             return {
@@ -40,7 +40,7 @@ export const setAuthReducer = (state = initialState, action: AuthReducerActionsT
             return state
     }
 }
-
+export default authReducer;
 
 // ----------- Action -----------
 
@@ -59,8 +59,8 @@ export const setAuthError = (err: string | null) => ({type: 'AUTH/SET_AUTH_ERROR
 type ThunkType = ThunkAction<void, AppStateType, unknown, AuthReducerActionsType>
 type ThunkDispatchActionType = ThunkDispatch<AppStateType, unknown, AuthReducerActionsType>
 
-export const getAuthUserData = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    authAPI.me()
+export const getAuthUserData = (): any => (dispatch: ThunkDispatchActionType) => {
+     return authAPI.me()
         .then(res => {
             if (res.data.resultCode === ResultCodeType.success) {
                 const {id, login, email} = res.data.data

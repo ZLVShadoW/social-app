@@ -7,10 +7,6 @@ import {App} from './App';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 
-// addPost('POP')
-// rerenderEntireTree 33 lesson
-
-
 ReactDOM.render(
     // <React.StrictMode>
         <Provider store={store}>

@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from './Header.module.scss';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 
 type HeaderType = {
     login: string | null
@@ -10,7 +9,10 @@ type HeaderType = {
 }
 
 export const Header: React.FC<HeaderType> = ({isAuth, login, logout}) => {
-    const dispatch = useDispatch()
+
+    const logoutHandle = () => {
+        logout()
+    }
 
     return (
         <header className={cn.header}>
@@ -20,7 +22,7 @@ export const Header: React.FC<HeaderType> = ({isAuth, login, logout}) => {
                     {
                         isAuth
                             ? <>hi, {` ${login} `}
-                                <button onClick={() => dispatch(logout())}>выйти</button>
+                                <button onClick={logoutHandle}>выйти</button>
                             </>
                             : <Link to={'/login'}>Login</Link>
                     }

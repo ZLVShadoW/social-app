@@ -4,7 +4,6 @@ import {AppStateType} from '../../redux/reducers';
 import {Profile} from './Profile';
 import {getUserProfile, getStatus, updateStatus} from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
-import {withAuthRedirect} from '../../HOCS/withAuthRedirect';
 import {compose} from 'redux';
 import {ProfileUserType} from '../../api/api';
 

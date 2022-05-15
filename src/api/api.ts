@@ -44,7 +44,7 @@ export const authAPI = {
         return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
-        return instance.delete<CommonResponseType>(`auth/login`)
+        return instance.post<CommonResponseType>(`auth/logout`)
     }
 }
 
