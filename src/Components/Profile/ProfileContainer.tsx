@@ -35,7 +35,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
-    updateStatus: (statusText: string | null) => void
+    updateStatus: (statusText: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {

@@ -1,6 +1,5 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import { getAuthUserData } from './auth-reducer';
-import {AppStateType} from './index';
+import {getAuthUserData} from './auth-reducer';
+import {AppDispatchActionType, AppThunksType} from './actions-types';
 
 type AppType = {
     isInitialized: boolean
@@ -10,7 +9,6 @@ const initialState: AppType = {
     isInitialized: false
 }
 
-type AppReducerActionsType = SetIsInitialized
 
 export const appReducer = (state: AppType = initialState, action: AppReducerActionsType): AppType => {
     switch (action.type) {
@@ -20,13 +18,15 @@ export const appReducer = (state: AppType = initialState, action: AppReducerActi
                 isInitialized: action.isInit
             }
         }
-        default: return state
+        default:
+            return state
     }
 }
 
 
 // ----------- actions -----------
 
+export type AppReducerActionsType = SetIsInitialized
 
 export type SetIsInitialized = ReturnType<typeof setIsInitialized>
 
@@ -35,12 +35,10 @@ export const setIsInitialized = (isInit: boolean) => ({type: 'APP/SET_IS_INITIAL
 
 // ----------- thunks -----------
 
-
-type ThunkType = ThunkAction<void, AppStateType, unknown, AppReducerActionsType>
-type ThunkDispatchActionType = ThunkDispatch<AppStateType, unknown, AppReducerActionsType>
-
-export const initializeApp = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    dispatch(getAuthUserData()).then(() => {
-        dispatch(setIsInitialized(true))
-    })
+export const initializeApp = (): AppThunksType => (dispatch: AppDispatchActionType) => {
+    const promise = dispatch(getAuthUserData())
+    Promise.all([promise])
+        .then(() => {
+            dispatch(setIsInitialized(true))
+        })
 }

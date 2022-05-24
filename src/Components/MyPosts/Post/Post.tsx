@@ -1,8 +1,8 @@
 import React from 'react';
 import avatar from './../../../assets/img/user.png';
-import cn from './Post.module.scss'
 import {PostType} from '../../../redux/reducers/profile-reducer';
 
+import cn from './Post.module.scss';
 
 
 

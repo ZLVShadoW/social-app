@@ -29,9 +29,10 @@ export const profileAPI = {
         return instance.get<ProfileUserType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
-        return instance.get<string | null>(`/profile/status/${userId}`)
+        return instance.get<string>(`/profile/status/${userId}`)
     },
-    updateStatus(statusText: string | null) {
+    // updateStatus(statusText: string | null) {
+    updateStatus(statusText: string) {
         return instance.put<CommonResponseType>(`/profile/status`, {status: statusText})
     }
 }
@@ -68,7 +69,7 @@ type CommonResponseType<D = {}> = {
     resultCode: ResultCodeType
 }
 
-type PhotosType = {
+export type PhotosType = {
     small: string | null
     large: string | null
 }
@@ -94,7 +95,7 @@ type MeResponseType = {
     login: string
 }
 
-type ContactsType = {
+export type ContactsType = {
     facebook: null | string
     github: null | string
     instagram: null | string

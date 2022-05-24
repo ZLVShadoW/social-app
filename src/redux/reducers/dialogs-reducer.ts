@@ -31,7 +31,6 @@ let initialState: DialogsPageType = {
     ]
 }
 
-type DialogsReducerActionsType = AddMessageActionType
 
 const dialogsReducer = (state = initialState, action: DialogsReducerActionsType): DialogsPageType => {
     switch (action.type) {
@@ -55,6 +54,7 @@ export default dialogsReducer;
 
 // ----------- actions -----------
 
+export type DialogsReducerActionsType = AddMessageActionType
 
 type AddMessageActionType = ReturnType<typeof addMessageAC>
 

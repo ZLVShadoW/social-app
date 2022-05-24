@@ -1,6 +1,5 @@
 import {authAPI, ResultCodeType} from '../../api/api';
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AppStateType} from './index';
+import {AppDispatchActionType, AppThunksType} from './actions-types';
 
 export type AuthType = {
     id: number | null
@@ -19,8 +18,6 @@ let initialState: AuthType = {
     authError: null
 }
 
-type AuthReducerActionsType = SetAuthUserDataActionType
-    | SetAuthError
 
 const authReducer = (state = initialState, action: AuthReducerActionsType): AuthType => {
     switch (action.type) {
@@ -42,8 +39,11 @@ const authReducer = (state = initialState, action: AuthReducerActionsType): Auth
 }
 export default authReducer;
 
+
 // ----------- Action -----------
 
+export type AuthReducerActionsType = SetAuthUserDataActionType
+    | SetAuthError
 
 type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 type SetAuthError = ReturnType<typeof setAuthError>
@@ -55,37 +55,34 @@ export const setAuthError = (err: string | null) => ({type: 'AUTH/SET_AUTH_ERROR
 
 // ----------- Thunk -----------
 
+//ThunkAction<Promise<boolean | void>, AppStateType, unknown, AuthReducerActionsType> на 63 строке заменить
+export const getAuthUserData = (): AppThunksType => async (dispatch: AppDispatchActionType) => {
+    const res = await authAPI.me()
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, AuthReducerActionsType>
-type ThunkDispatchActionType = ThunkDispatch<AppStateType, unknown, AuthReducerActionsType>
-
-export const getAuthUserData = (): any => (dispatch: ThunkDispatchActionType) => {
-     return authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === ResultCodeType.success) {
-                const {id, login, email} = res.data.data
-                dispatch(setAuthUserData(id, login, email, true))
-            }
-        })
-}
-export const login = (data: { email: string, password: string, rememberMe: boolean }): ThunkType =>
-    (dispatch: ThunkDispatchActionType) => {
-        const {email, password, rememberMe} = data
-        authAPI.login(email, password, rememberMe)
-            .then(res => {
-                if (res.data.resultCode === ResultCodeType.success) {
-                    dispatch(getAuthUserData())
-                } else {
-                    dispatch(setAuthError(res.data.messages[0]))
-                }
-            })
+    if (res.data.resultCode === ResultCodeType.success) {
+        const {id, login, email} = res.data.data
+        dispatch(setAuthUserData(id, login, email, true))
     }
-export const logout = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    authAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === ResultCodeType.success) {
-                dispatch(setAuthUserData(null, null, null, false))
-                dispatch(setAuthError(null))
-            }
-        })
+}
+
+export const login = (data: { email: string, password: string, rememberMe: boolean }): AppThunksType =>
+    async (dispatch: AppDispatchActionType) => {
+        const {email, password, rememberMe} = data
+
+        const res = await authAPI.login(email, password, rememberMe)
+
+        if (res.data.resultCode === ResultCodeType.success) {
+            dispatch(getAuthUserData())
+        } else {
+            dispatch(setAuthError(res.data.messages[0]))
+        }
+    }
+
+export const logout = (): AppThunksType => async (dispatch: AppDispatchActionType) => {
+    const res = await authAPI.logout()
+
+    if (res.data.resultCode === ResultCodeType.success) {
+        dispatch(setAuthUserData(null, null, null, false))
+        dispatch(setAuthError(null))
+    }
 }

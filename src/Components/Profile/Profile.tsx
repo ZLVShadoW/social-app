@@ -6,7 +6,7 @@ import {ProfileUserType} from '../../api/api';
 type ProfilePropsType = {
     profile: ProfileUserType | null
     status: string | null
-    updateStatus: (statusText: string | null) => void
+    updateStatus: (statusText: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {

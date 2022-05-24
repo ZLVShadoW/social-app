@@ -1,6 +1,5 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AppStateType} from './index';
 import {ProfileUserType, profileAPI, ResultCodeType, usersAPI} from '../../api/api';
+import {AppDispatchActionType, AppThunksType} from './actions-types';
 
 export type PostType = {
     id: number;
@@ -28,14 +27,11 @@ let initialState: ProfilePageType = {
     status: null
 }
 
-type ProfileReducerActionsType = AddPostACActionType
-    | SetUserProfileActionType
-    | SetStatusActionType
 
 const profileReducer = (state = initialState, action: ProfileReducerActionsType): ProfilePageType => {
 
     switch (action.type) {
-        case 'PROFILE/ADD-POST': {
+        case 'PROFILE/ADD_POST': {
             const newPost: PostType = {
                 id: 5,
                 message: action.postMessage,
@@ -52,6 +48,12 @@ const profileReducer = (state = initialState, action: ProfileReducerActionsType)
         case 'PROFILE/SET_STATUS': {
             return {...state, status: action.statusText}
         }
+        case 'PROFILE/DELETE_POST': {
+            return {
+                ...state,
+                posts: state.posts.filter(el => el.id !== action.id)
+            }
+        }
         default:
             return state
     }
@@ -62,37 +64,45 @@ export default profileReducer;
 
 // ----------- actions -----------
 
+export type ProfileReducerActionsType = AddPostACActionType
+    | SetUserProfileActionType
+    | SetStatusActionType
+    | DeletePostActionType
 
 type AddPostACActionType = ReturnType<typeof addPostAC>
 type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 type SetStatusActionType = ReturnType<typeof setStatus>
+type DeletePostActionType = ReturnType<typeof deletePost>
 
 export const addPostAC = (message: string) => {
-    return {type: 'PROFILE/ADD-POST', postMessage: message} as const
+    return {type: 'PROFILE/ADD_POST', postMessage: message} as const
 }
-export const setUserProfile = (profile: ProfileUserType) => ({type: 'PROFILE/SET_USER_PROFILE', profile}) as const
-export const setStatus = (statusText: string | null) => ({type: 'PROFILE/SET_STATUS', statusText}) as const
+export const setUserProfile = (profile: ProfileUserType) =>
+    ({type: 'PROFILE/SET_USER_PROFILE', profile}) as const
+
+export const setStatus = (statusText: string) =>
+    ({type: 'PROFILE/SET_STATUS', statusText}) as const
+
+export const deletePost = (id: number) =>
+    ({type: 'PROFILE/DELETE_POST', id}) as const
 
 
 // ----------- Thunk -----------
 
-
-type ThunkType = ThunkAction<void, AppStateType, unknown, ProfileReducerActionsType>
-type ThunkDispatchActionType = ThunkDispatch<AppStateType, unknown, ProfileReducerActionsType>
-
-export const getUserProfile = (userId: number): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    usersAPI.getProfile(userId)
-        .then(response => dispatch(setUserProfile(response.data)))
+export const getUserProfile = (userId: number): AppThunksType => async (dispatch: AppDispatchActionType) => {
+    const res = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(res.data))
 }
-export const getStatus = (userId: number): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    profileAPI.getStatus(userId)
-        .then(res => dispatch(setStatus(res.data)))
+
+export const getStatus = (userId: number): AppThunksType => async (dispatch: AppDispatchActionType) => {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatus(res.data))
 }
-export const updateStatus = (statusText: string | null): ThunkType => (dispatch: ThunkDispatchActionType) => {
-    profileAPI.updateStatus(statusText)
-        .then(res => {
-            if (res.data.resultCode === ResultCodeType.success) {
-                dispatch(setStatus(statusText))
-            }
-        })
+
+export const updateStatus = (statusText: string): AppThunksType => async (dispatch: AppDispatchActionType) => {
+    const res = await profileAPI.updateStatus(statusText)
+
+    if (res.data.resultCode === ResultCodeType.success) {
+        dispatch(setStatus(statusText))
+    }
 }

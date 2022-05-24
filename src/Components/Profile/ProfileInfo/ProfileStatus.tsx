@@ -2,16 +2,19 @@ import React from 'react';
 
 type ProfileStatusType = {
     status: string | null
-    updateStatus: (statusText: string | null) => void
+    updateStatus: (statusText: string) => void
 }
 
 export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const [isEditMode, setIsEditMode] = React.useState(false)
-    const [statusText, setStatusText] = React.useState(props.status)
+    const [statusText, setStatusText] = React.useState<string | null>(props.status)
+
+    React.useEffect(() => {
+        setStatusText(props.status)
+    }, [props.status])
 
     const onDoubleClickHandler = () => {
         setIsEditMode(true)
-        setStatusText(props.status)
     }
 
     const onBlurHandler = () => {

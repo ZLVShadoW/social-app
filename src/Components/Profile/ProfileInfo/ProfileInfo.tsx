@@ -7,23 +7,23 @@ import {ProfileUserType} from '../../../api/api';
 type ProfileInfoPropsType = {
     profile: ProfileUserType | null
     status: string | null
-    updateStatus: (statusText: string | null) => void
+    updateStatus: (statusText: string) => void
 }
 
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
 
     const cnsize = {
         width: '100px',
     }
 
-    if (!props.profile) return (
+    if (!profile) return (
         <Preloader/>
     )
 
     return (
         <div>
-            <img src={props.profile?.photos.small ? props.profile.photos.small : avatar} alt={'avatar'} style={cnsize}/>
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+            <img src={profile?.photos.small ? profile.photos.small : avatar} alt={'avatar'} style={cnsize}/>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
             <br/>
         </div>
     );

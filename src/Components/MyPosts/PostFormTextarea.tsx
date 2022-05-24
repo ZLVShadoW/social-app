@@ -1,5 +1,6 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {SButton} from '../SButton/SButton';
 
 type PostFormTextareaPropsType = {
     addPost: (text: string) => void
@@ -24,9 +25,10 @@ export const PostFormTextarea: React.FC<PostFormTextareaPropsType> = (props) => 
             <label htmlFor={'post'}>
             <textarea name={'post'} id={'post'} placeholder={'your post'}
                       onChange={formik.handleChange} value={formik.values.post}
+
             />
             </label>
-            <button type={'submit'}>click</button>
+            <SButton>click</SButton>
         </form>
     )
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import {Form, Formik, FormikHelpers, Field, ErrorMessage, useFormik} from 'formik';
+import {Form, Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthType, login} from '../../redux/reducers/auth-reducer';
 import {AppStateType} from '../../redux/reducers';
 import {Navigate} from 'react-router-dom';
+import {SButton} from '../SButton/SButton';
 
 type InitialValues = {
     email: string
@@ -19,6 +20,7 @@ const SignupSchema = Yup.object().shape({
 
 export const Login = () => {
     const dispatch = useDispatch()
+
     const {isAuth} = useSelector<AppStateType, AuthType>(state => state.auth)
     const authError = useSelector<AppStateType, string | null>(state => state.auth.authError)
 
@@ -28,9 +30,8 @@ export const Login = () => {
         rememberMe: false,
     }
 
-    const onSubmit = (values: InitialValues, {resetForm}: FormikHelpers<InitialValues>) => {
+    const onSubmit = (values: InitialValues) => {
         dispatch(login(values))
-        // resetForm({}) // необязательно думаю, redirect будет
     }
 
     if (isAuth) return <Navigate to={'/profile'}/>
@@ -56,7 +57,7 @@ export const Login = () => {
                         </label>
                     </div>
                     {authError && <div style={{color: 'red', border: '1px solid red'}}>{authError}</div>}
-                    <button type={'submit'}>Login</button>
+                    <SButton type={'submit'}>Login</SButton>
                 </Form>
             </Formik>
         </div>

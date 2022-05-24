@@ -21,53 +21,19 @@ import {
 
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
-// type UsersContainerPropsType = {
-//     users: Array<UserType>
-//     totalUsersCount: number
-//     pageSize: number
-//     currentPage: number
-//     isFetching: boolean
-//     followingProgress: Array<number | undefined>
-//     follow: (userId: number) => void
-//     unfollow: (userId: number) => void
-//     setUsers: (users: Array<UserType>) => void
-//     setTotalUsersCount: (totalCount: number) => void
-//     setCurrentPage: (page: number) => void
-//     toggleIsFetching: (isFetching: boolean) => void
-//     toggleIsFollowingProgress: (userId: number, isFetching: boolean) => void
-// }
-
 class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     // constructor(props: UsersContainerPropsType) {
     //     super(props)
-    //
-    //
     // }
 
-
     componentDidMount() {
-
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
-
-        // this.props.toggleIsFetching(true)
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.setUsers(data.items)
-        //         this.props.setTotalUsersCount(data.totalCount)
-        //         this.props.toggleIsFetching(false)
-        //     })
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize)
     }
 
     openCurrentPage = (page: number) => {
-        // this.props.setCurrentPage(page)
-        this.props.getUsers(page, this.props.pageSize)
-
-        // this.props.toggleIsFetching(true)
-        // usersAPI.getUsers(page, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.setUsers(data.items)
-        //         this.props.toggleIsFetching(false)
-        //     })
+        const {pageSize} = this.props
+        this.props.getUsers(page, pageSize)
     }
 
     render() {
@@ -100,7 +66,6 @@ type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
-    // setCurrentPage: (page: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {

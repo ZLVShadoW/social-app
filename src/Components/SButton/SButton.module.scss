@@ -1,0 +1,19 @@
+.btn {
+  border: 0;
+  //нельзя анимировать градиент
+  //background: linear-gradient(10deg, #203340 50%, lighten(#203340, 30) 100%);
+  background: #203340;
+  box-shadow: 0 10px 11px -3px #203340;
+  color: aliceblue;
+  padding: 7px 15px;
+  border-radius: 4px;
+  transition: .15s ease;
+  &:hover {
+    background: lighten(#203340, 15);
+    box-shadow: 0 10px 5px -5px #203340, inset 0 0 10px 5px #203340;
+    //transform: scale(.998);
+  }
+  &:active {
+    transform: scale(.8);
+  }
+}
