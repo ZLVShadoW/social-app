@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import imgSrc from '../../assets/img/user.png';
+
 import {UserType} from '../../api/api';
 
+import imgSrc from '../../assets/img/user.png';
 
 type UserPropsType = {
     user: UserType

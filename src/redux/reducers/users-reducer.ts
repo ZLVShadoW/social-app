@@ -1,4 +1,5 @@
 import {ResultCodeType, UserType, usersAPI} from '../../api/api';
+import { updatePropFollowed } from '../utils';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
 
 
@@ -14,19 +15,12 @@ type UsersPageType = {
 let initialState: UsersPageType = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 3,
+    pageSize: 10,
     currentPage: 1,
     isFetching: true,
     followingProgress: []
 }
 
-const updatePropFollowed = (arr: Array<UserType>, idInner: number, falsy: boolean) => {
-    return arr.map(user => user.id === idInner ? {...user, followed: falsy} : user)
-}
-
-// const _func = <T = {}>(arr: Array<T>, idInner: number, objPropName: number, newObjProps: {}) => {
-//     return arr.map((item) => item[objPropName] === idInner ? {...item, ...newObjProps} : item)
-// }
 
 const usersReducer = (state = initialState, action: UsersReducerActionType): UsersPageType => {
     switch (action.type) {
