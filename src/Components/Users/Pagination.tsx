@@ -21,7 +21,7 @@ export const Pagination: React.FC<PaginationPropsType> =
         }
 
         const [portionNum, setPortionNum] = React.useState(1)
-        const [direction, setDirection] = React.useState<DirectionType>('left')
+        const [direction, setDirection] = React.useState<DirectionType>('right')
 
         const portionPageSize = 10
         const portionsCount = Math.ceil(pagesCount / portionPageSize)

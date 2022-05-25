@@ -1,15 +1,21 @@
 import {ProfileUserType, profileAPI, ResultCodeType, usersAPI} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
 
+//TODO на будущее
+export type Nullable<T> = T | null
+
 export type PostType = {
     id: number;
     message: string;
     likesCount: number;
 }
+
 export type ProfilePageType = {
     posts: Array<PostType>;
     profile: ProfileUserType | null
     status: string | null
+    // profile: Nullable<ProfileUserType>
+    // status: Nullable<string>
 }
 
 

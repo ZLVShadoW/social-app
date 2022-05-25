@@ -7,10 +7,21 @@ import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
 import {compose} from 'redux';
 import {ProfileUserType} from '../../api/api';
 
+
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType & { params: { userId: string } }, {}> {
     componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType & { params: { userId: string } }>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.params.userId !== this.props.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
+    refreshProfile() {
         let userId = Number(this.props.params.userId)
         userId = userId ? userId : 23354
 

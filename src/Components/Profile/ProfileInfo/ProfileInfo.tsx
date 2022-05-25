@@ -22,7 +22,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, up
 
     return (
         <div>
-            <img src={profile?.photos.small ? profile.photos.small : avatar} alt={'avatar'} style={cnsize}/>
+            <img src={profile.photos.large ? profile.photos.large : avatar} alt={'avatar'} style={cnsize}/>
             <ProfileStatus status={status} updateStatus={updateStatus}/>
             <br/>
         </div>
