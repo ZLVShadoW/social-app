@@ -4,9 +4,11 @@ import {MyPostsContainer} from '../MyPosts/MyPostsContainer';
 import {ProfileUserType} from '../../api/api';
 
 type ProfilePropsType = {
+    isOwner: boolean
     profile: ProfileUserType | null
     status: string | null
     updateStatus: (statusText: string) => void
+    savePhoto: (photo: any) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -18,7 +20,10 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
             <br/>
             -----------------------------PROFILE-------------------------------------------------
 
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+            <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status}
+                         updateStatus={props.updateStatus}
+                         savePhoto={props.savePhoto}
+            />
             <MyPostsContainer/>
         </>
     );

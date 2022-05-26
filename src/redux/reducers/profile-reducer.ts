@@ -1,8 +1,6 @@
-import {ProfileUserType, profileAPI, ResultCodeType, usersAPI} from '../../api/api';
+import {PhotosType, profileAPI, ProfileUserType, ResultCodeType, usersAPI} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
 
-//TODO на будущее
-export type Nullable<T> = T | null
 
 export type PostType = {
     id: number;
@@ -60,6 +58,16 @@ const profileReducer = (state = initialState, action: ProfileReducerActionsType)
                 posts: state.posts.filter(el => el.id !== action.id)
             }
         }
+        case 'PROFILE/SAVE_PHOTO_SUCCESS': {
+            return {
+                ...state,
+                //TODO проблема с null, пришлось поставить вск знак !
+                profile: {
+                    ...state.profile!,
+                    photos: action.photos
+                }
+            }
+        }
         default:
             return state
     }
@@ -74,11 +82,13 @@ export type ProfileReducerActionsType = AddPostACActionType
     | SetUserProfileActionType
     | SetStatusActionType
     | DeletePostActionType
+    | SavePhotoSuccess
 
 type AddPostACActionType = ReturnType<typeof addPostAC>
 type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 type SetStatusActionType = ReturnType<typeof setStatus>
 type DeletePostActionType = ReturnType<typeof deletePost>
+type SavePhotoSuccess = ReturnType<typeof savePhotoSuccess>
 
 export const addPostAC = (message: string) => {
     return {type: 'PROFILE/ADD_POST', postMessage: message} as const
@@ -91,6 +101,9 @@ export const setStatus = (statusText: string) =>
 
 export const deletePost = (id: number) =>
     ({type: 'PROFILE/DELETE_POST', id}) as const
+
+export const savePhotoSuccess = (photos: PhotosType) =>
+    ({type: 'PROFILE/SAVE_PHOTO_SUCCESS', photos}) as const
 
 
 // ----------- Thunk -----------
@@ -110,5 +123,16 @@ export const updateStatus = (statusText: string): AppThunksType => async (dispat
 
     if (res.data.resultCode === ResultCodeType.success) {
         dispatch(setStatus(statusText))
+    }
+}
+
+export const savePhoto = (photo: any) => async (dispatch: AppDispatchActionType) => {
+    const formData = new FormData()
+    formData.append('image', photo)
+
+    const res = await profileAPI.savePhoto(formData)
+
+    if (res.data.resultCode === ResultCodeType.success) {
+        dispatch(savePhotoSuccess(res.data.data.photos))
     }
 }

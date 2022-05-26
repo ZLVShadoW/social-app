@@ -35,6 +35,13 @@ export const profileAPI = {
     // updateStatus(statusText: string | null) {
     updateStatus(statusText: string) {
         return instance.put<CommonResponseType>(`/profile/status`, {status: statusText})
+    },
+    savePhoto(photoFile: any) {
+        return instance.put<CommonResponseType<{ photos: PhotosType }>>(`/profile/photo`, photoFile, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -53,9 +60,8 @@ export const authAPI = {
 
 // ----------- types -----------
 
-//TODO проверить типизацию для PUT и POST (может, видео 14 перед 15)
-//getProfile пока без типизации
-
+//TODO на будущее
+export type Nullable<T> = T | null
 
 export enum ResultCodeType {
     success = 0,
@@ -97,22 +103,24 @@ type MeResponseType = {
 }
 
 export type ContactsType = {
-    facebook: null | string
-    github: null | string
-    instagram: null | string
-    mainLink: null | string
-    twitter: null | string
-    vk: null | string
-    website: null | string
-    youtube: null | string
+    facebook: Nullable<string>
+    github: Nullable<string>
+    instagram: Nullable<string>
+    mainLink: Nullable<string>
+    twitter: Nullable<string>
+    vk: Nullable<string>
+    website: Nullable<string>
+    youtube: Nullable<string>
 }
 
 export type ProfileUserType = {
-    aboutMe: null | string
+    // aboutMe: null | string
+    aboutMe: Nullable<string>
     contacts: ContactsType
     fullName: string
     lookingForAJob: boolean
-    lookingForAJobDescription: null | string
+    // lookingForAJobDescription: null | string
+    lookingForAJobDescription: Nullable<string>
     photos: PhotosType
     userId: number
 }
