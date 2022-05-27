@@ -1,43 +1,30 @@
 .navbar {
-  border: 1px solid green;
   width: 250px;
 
   ul {
     > li {
-      margin-bottom: 5px;
-      background: antiquewhite;
+      border-radius: 2px;
+      margin-bottom: 1px;
       position: relative;
-      overflow: hidden;
 
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 55px;
-        height: 35px;
-        background: linear-gradient(110deg, rgb(248, 233, 214) 15%, rgba(255, 255, 255, 0.85) 39%, rgb(248, 233, 214) 75%);
-        transition: .5s;
-      }
-
-      &:hover:before {
-        left: 100%;
+      &:hover {
+        background: #fafafd;
+        box-shadow: 1px 1px 0 0 #dce1e6;
       }
 
       a.default {
-        color: black;
+        color: #1f1f20;
         text-decoration: none;
         font-weight: bold;
         display: block;
-        padding: 5px 5px 5px 15px;;
+        padding: 4px 4px 4px 15px;;
         position: relative;
+        transition: 0.15s;
 
         &.active {
-          color: red;
+          color: #fd6247;
         }
       }
-
-
     }
 
     :last-child {

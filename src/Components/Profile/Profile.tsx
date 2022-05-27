@@ -8,7 +8,7 @@ type ProfilePropsType = {
     profile: ProfileUserType | null
     status: string | null
     updateStatus: (statusText: string) => void
-    savePhoto: (photo: any) => void
+    savePhoto: (photo: File) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {

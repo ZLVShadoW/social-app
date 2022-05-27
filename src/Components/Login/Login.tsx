@@ -41,14 +41,15 @@ export const Login = () => {
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={SignupSchema}>
                 <Form>
                     <div>
-                        <label htmlFor={'email'}>Email: </label>
-                        <Field type={'text'} name={'email'} id={'email'}/>
-                        <ErrorMessage name={'email'} render={msg => (<span>{msg}</span>)}/>
+                        <label htmlFor={'email'}>Email:
+                            <Field type={'text'} name={'email'} id={'email'}/>
+                            <ErrorMessage name={'email'} render={msg => (<span>{msg}</span>)}/>
+                        </label>
                     </div>
                     <div>
                         <label>Password:
                             <Field type={'password'} name={'password'} id={'password'}/>
-                            <ErrorMessage name={'password'} render={msg => (<div>{msg}</div>)}/>
+                            <ErrorMessage name={'password'} render={msg => (<span>{msg}</span>)}/>
                         </label>
                     </div>
                     <div>

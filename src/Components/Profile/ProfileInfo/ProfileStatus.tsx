@@ -20,8 +20,7 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const onBlurHandler = () => {
         setIsEditMode(false)
         if (props.status === statusText) return
-        props.updateStatus(statusText!.trim())
-        //TODO как быть с null (в редьюсере обработать. если null, то пустую строку засетать)
+        if (statusText) props.updateStatus(statusText.trim())
     }
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

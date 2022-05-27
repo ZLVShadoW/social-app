@@ -36,7 +36,7 @@ export const profileAPI = {
     updateStatus(statusText: string) {
         return instance.put<CommonResponseType>(`/profile/status`, {status: statusText})
     },
-    savePhoto(photoFile: any) {
+    savePhoto(photoFile: FormData) {
         return instance.put<CommonResponseType<{ photos: PhotosType }>>(`/profile/photo`, photoFile, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -60,7 +60,6 @@ export const authAPI = {
 
 // ----------- types -----------
 
-//TODO на будущее
 export type Nullable<T> = T | null
 
 export enum ResultCodeType {
@@ -77,8 +76,8 @@ type CommonResponseType<D = {}> = {
 }
 
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: Nullable<string>
+    large: Nullable<string>
 }
 
 export type UserType = {
@@ -86,7 +85,7 @@ export type UserType = {
     id: number
     photos: PhotosType
     followed: boolean
-    status: string | null
+    status: Nullable<string>
     uniqueUrlName: null
 }
 
@@ -103,6 +102,8 @@ type MeResponseType = {
 }
 
 export type ContactsType = {
+    //TODO как сделать правильно? без этой типизации в ProfileInfo нельзя после .map по объекту прокинуть динамически ключ
+    [key: string]: Nullable<string>
     facebook: Nullable<string>
     github: Nullable<string>
     instagram: Nullable<string>
@@ -114,12 +115,10 @@ export type ContactsType = {
 }
 
 export type ProfileUserType = {
-    // aboutMe: null | string
     aboutMe: Nullable<string>
     contacts: ContactsType
     fullName: string
     lookingForAJob: boolean
-    // lookingForAJobDescription: null | string
     lookingForAJobDescription: Nullable<string>
     photos: PhotosType
     userId: number

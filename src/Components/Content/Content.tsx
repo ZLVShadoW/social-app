@@ -45,8 +45,3 @@ export const Content: React.FC<ContentPropsType> = (props) => {
         </div>
     );
 }
-
-//TODO FIND HOW TO BE WITH URL; CHILD IN DIALOGITEM ---
-
-//TODO MyPotsContainer - определение типа dispatch (из redux)
-//TODO 71 DONE ... MOVE TO NEXT VIDEO - 72 ...

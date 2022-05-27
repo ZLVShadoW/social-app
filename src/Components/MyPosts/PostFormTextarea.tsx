@@ -19,14 +19,13 @@ export const PostFormTextarea: React.FC<PostFormTextareaPropsType> = (props) => 
             // setErrors("values")
         }
     })
-    console.log(formik)
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <label htmlFor={'post'}>
-            <textarea name={'post'} id={'post'} placeholder={'your post'}
-                      onChange={formik.handleChange} value={formik.values.post}
-
-            />
+                <textarea name={'post'} id={'post'} placeholder={'your post'}
+                          onChange={formik.handleChange} value={formik.values.post}
+                />
             </label>
             <SButton>click</SButton>
         </form>

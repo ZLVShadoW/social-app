@@ -30,10 +30,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
     }
 
     render() {
-
-        //TODO прокидывание пропсов спредом, принятие пропсов детьми, что с типом null
-
-        // return <Profile {...this.props} profile={this.props.profile}/>
         return <Profile {...this.props} isOwner={!this.props.params.userId} savePhoto={this.props.savePhoto} />
     }
 }
@@ -47,7 +43,7 @@ type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
     updateStatus: (statusText: string) => void
-    savePhoto: (photo: any) => void
+    savePhoto: (photo: File) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {

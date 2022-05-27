@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from './Header.module.scss';
+import style from './Header.module.scss';
 import {Link} from 'react-router-dom';
 import {SButton} from '../SButton/SButton';
 
@@ -16,9 +16,9 @@ export const Header: React.FC<HeaderType> = ({isAuth, login, logout}) => {
     }
 
     return (
-        <header className={cn.header}>
+        <header className={style.header}>
             <div className={'container'}>
-                <div>header</div>
+                <div className={style.logo}>Logo</div>
                 <div>
                     {
                         isAuth

@@ -126,7 +126,7 @@ export const updateStatus = (statusText: string): AppThunksType => async (dispat
     }
 }
 
-export const savePhoto = (photo: any) => async (dispatch: AppDispatchActionType) => {
+export const savePhoto = (photo: File) => async (dispatch: AppDispatchActionType) => {
     const formData = new FormData()
     formData.append('image', photo)
 

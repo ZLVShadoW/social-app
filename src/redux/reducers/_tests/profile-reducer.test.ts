@@ -10,7 +10,8 @@ beforeEach(() => {
             {id: 2, message: 'second text', likesCount: 5},
             {id: 3, message: 'third text', likesCount: 1}
         ],
-        profile: null,
+        // profile: null,
+        profile: {} as ProfileUserType,
         status: null
     }
 })

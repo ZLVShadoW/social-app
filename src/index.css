@@ -1,4 +1,4 @@
-@import-normalize;
+/*@import-normalize;*/
 
 body {
   margin: 0;
@@ -7,6 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: #fafafd;
 }
 
 code {
@@ -20,6 +22,10 @@ ul {
   padding: 0;
 }
 
+img {
+  display: block;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -27,6 +33,5 @@ ul {
   flex-wrap: wrap;
   width: 100%;
   max-width: 1250px;
-  margin: 0 auto;
-  border: 1px solid red;
+  margin: 0 auto;;
 }
