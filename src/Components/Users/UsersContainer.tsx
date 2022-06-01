@@ -31,6 +31,13 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
         this.props.getUsers(currentPage, pageSize)
     }
 
+    componentDidUpdate(prevProps: Readonly<UsersContainerPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.currentPage !== this.props.currentPage) {
+            const {currentPage, pageSize} = this.props
+            this.props.getUsers(currentPage, pageSize)
+        }
+    }
+
     openCurrentPage = (page: number) => {
         const {pageSize} = this.props
         this.props.getUsers(page, pageSize)

@@ -62,6 +62,7 @@ const profileReducer = (state = initialState, action: ProfileReducerActionsType)
             return {
                 ...state,
                 //TODO проблема с null, пришлось поставить вск знак !
+                //без вскл проставлять вопр знак в типизции профиля (api), и в UI заки проставлять
                 profile: {
                     ...state.profile!,
                     photos: action.photos

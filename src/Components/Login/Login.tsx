@@ -6,28 +6,34 @@ import {AuthType, login} from '../../redux/reducers/auth-reducer';
 import {AppStateType} from '../../redux/reducers';
 import {Navigate} from 'react-router-dom';
 import {SButton} from '../SButton/SButton';
+import {Nullable} from '../../api/api';
 
 type InitialValues = {
     email: string
     password: string
     rememberMe: boolean
+    captcha?: string
 }
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(6, 'min symbols is 6').required('Required').typeError('Incorrect password')
+    password: Yup.string().min(6, 'min symbols is 6').required('Required').typeError('Incorrect password'),
+    // captcha: Yup.string().required('Required')
+    //TODO не пускает без капчи (а её нет)
 })
 
 export const Login = () => {
     const dispatch = useDispatch()
 
     const {isAuth} = useSelector<AppStateType, AuthType>(state => state.auth)
-    const authError = useSelector<AppStateType, string | null>(state => state.auth.authError)
+    const authError = useSelector<AppStateType, Nullable<string>>(state => state.auth.authError)
+    const captchaUrl = useSelector<AppStateType, Nullable<string> | undefined>(state => state.auth.captchaUrl)
 
     const initialValues: InitialValues = {
         email: '',
         password: '',
         rememberMe: false,
+        captcha: ''
     }
 
     const onSubmit = (values: InitialValues) => {
@@ -57,6 +63,17 @@ export const Login = () => {
                             <Field type={'checkbox'} name={'rememberMe'} id={'rememberMe'}/>
                         </label>
                     </div>
+                    {captchaUrl &&
+                        <>
+                            <div>
+                                <label htmlFor={'captcha'}>Remember:
+                                    <Field type={'text'} name={'captcha'} id={'captcha'}/>
+                                </label>
+                            </div>
+                            <div><img src={captchaUrl!} alt={'captcha'}/></div>
+                        </>
+                    }
+
                     {authError && <div style={{color: 'red', border: '1px solid red'}}>{authError}</div>}
                     <SButton type={'submit'}>Login</SButton>
                 </Form>

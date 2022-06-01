@@ -32,7 +32,6 @@ export const profileAPI = {
     getStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     },
-    // updateStatus(statusText: string | null) {
     updateStatus(statusText: string) {
         return instance.put<CommonResponseType>(`/profile/status`, {status: statusText})
     },
@@ -49,11 +48,16 @@ export const authAPI = {
     me() {
         return instance.get<CommonResponseType<MeResponseType>>(`auth/me`)
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false, captcha?: string) {
+        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe, captcha})
     },
     logout() {
         return instance.post<CommonResponseType>(`auth/logout`)
+    }
+}
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get<{url: string}>('security/get-captcha-url')
     }
 }
 

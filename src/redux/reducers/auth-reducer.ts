@@ -1,4 +1,4 @@
-import {authAPI, ResultCodeType} from '../../api/api';
+import {authAPI, Nullable, ResultCodeType, securityAPI} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
 
 export type AuthType = {
@@ -6,7 +6,8 @@ export type AuthType = {
     login: string | null
     email: string | null
     isAuth: boolean
-    authError: string | null
+    authError: Nullable<string>
+    captchaUrl?: Nullable<string>
 }
 
 let initialState: AuthType = {
@@ -14,7 +15,8 @@ let initialState: AuthType = {
     login: null,
     email: null,
     isAuth: false,
-    authError: null
+    authError: null,
+    captchaUrl: null
 }
 
 
@@ -32,6 +34,12 @@ const authReducer = (state = initialState, action: AuthReducerActionsType): Auth
                 authError: action.err
             }
         }
+        case 'AUTH/SET_CAPTCHA_URL': {
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
+            }
+        }
         default:
             return state
     }
@@ -43,13 +51,18 @@ export default authReducer;
 
 export type AuthReducerActionsType = SetAuthUserDataActionType
     | SetAuthError
+    | SetCaptchaUrl
 
 type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 type SetAuthError = ReturnType<typeof setAuthError>
+type SetCaptchaUrl = ReturnType<typeof setCaptchaUrl>
 
 export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) =>
     ({type: 'AUTH/SET_AUTH_USER_DATA', payload: {id, login, email, isAuth}} as const)
+
 export const setAuthError = (err: string | null) => ({type: 'AUTH/SET_AUTH_ERROR', err} as const)
+
+export const setCaptchaUrl = (captchaUrl: string) => ({type: 'AUTH/SET_CAPTCHA_URL', captchaUrl} as const)
 
 
 // ----------- Thunk -----------
@@ -64,15 +77,18 @@ export const getAuthUserData = (): AppThunksType => async (dispatch: AppDispatch
     }
 }
 
-export const login = (data: { email: string, password: string, rememberMe: boolean }): AppThunksType =>
+export const login = (data: { email: string, password: string, rememberMe: boolean, captcha?: string }): AppThunksType =>
     async (dispatch: AppDispatchActionType) => {
-        const {email, password, rememberMe} = data
+        const {email, password, rememberMe, captcha} = data
 
-        const res = await authAPI.login(email, password, rememberMe)
+        const res = await authAPI.login(email, password, rememberMe, captcha)
 
         if (res.data.resultCode === ResultCodeType.success) {
             dispatch(getAuthUserData())
         } else {
+            if (res.data.resultCode === ResultCodeType.captcha) {
+                dispatch(getCaptchaUrl())
+            }
             dispatch(setAuthError(res.data.messages[0]))
         }
     }
@@ -84,4 +100,9 @@ export const logout = (): AppThunksType => async (dispatch: AppDispatchActionTyp
         dispatch(setAuthUserData(null, null, null, false))
         dispatch(setAuthError(null))
     }
+}
+
+export const getCaptchaUrl = () => async (dispatch: AppDispatchActionType) => {
+    const res = await securityAPI.getCaptcha()
+    dispatch(setCaptchaUrl(res.data.url))
 }

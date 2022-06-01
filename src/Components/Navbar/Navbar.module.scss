@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .navbar {
   width: 250px;
 
@@ -7,13 +9,30 @@
       margin-bottom: 1px;
       position: relative;
 
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 4%;
+        transform: translateY(-50%);
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid $linesColor;
+        opacity: 0;
+        transition: 0.15s;
+      }
+
+      &:hover:after {
+        opacity: 1;
+      }
+
       &:hover {
-        background: #fafafd;
-        box-shadow: 1px 1px 0 0 #dce1e6;
+        background: $bgItemsColor;
+        box-shadow: 1px 1px 0 0 $linesColor;
       }
 
       a.default {
-        color: #1f1f20;
+        color: $accentColor;
         text-decoration: none;
         font-weight: bold;
         display: block;
@@ -22,7 +41,7 @@
         transition: 0.15s;
 
         &.active {
-          color: #fd6247;
+          color: $secondAccentColor;
         }
       }
     }

@@ -1,16 +1,18 @@
+@import 'src/styles/variables';
+
 .user {
   display: flex;
   flex-wrap: nowrap;
   gap: 30px;
   padding: 10px;
   margin-bottom: 18px;
-  background: #fff;
-  box-shadow: 4px 4px 4px rgb(220 225 230);
+  background: $bgItemsColor;
+  box-shadow: 4px 4px 4px $linesColor;
 
   &__img {
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 2px 2px 4px rgb(220 225 230);
+    box-shadow: 2px 2px 4px $linesColor;
     width: 100%;
     max-width: 150px;
   }
@@ -32,6 +34,6 @@
 .status {
   border-radius: 4px;
   padding: 4px 10px;
-  box-shadow: inset 0 0 10px 1px #dce1e6;
+  box-shadow: inset 0 0 10px 1px $linesColor;
   margin-top: 6px;
 }
