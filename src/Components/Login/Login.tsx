@@ -20,6 +20,7 @@ const SignupSchema = Yup.object().shape({
     password: Yup.string().min(6, 'min symbols is 6').required('Required').typeError('Incorrect password'),
     // captcha: Yup.string().required('Required')
     //TODO не пускает без капчи (а её нет)
+    // captcha: Yup.string().optional()
 })
 
 export const Login = () => {
@@ -66,7 +67,7 @@ export const Login = () => {
                     {captchaUrl &&
                         <>
                             <div>
-                                <label htmlFor={'captcha'}>Remember:
+                                <label htmlFor={'captcha'}>Captcha:
                                     <Field type={'text'} name={'captcha'} id={'captcha'}/>
                                 </label>
                             </div>

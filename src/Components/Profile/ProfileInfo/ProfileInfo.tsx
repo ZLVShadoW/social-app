@@ -5,6 +5,7 @@ import {ProfileStatus} from './ProfileStatus';
 import {Nullable, ProfileUserType} from '../../../api/api';
 import {ProfileData} from './ProfileData';
 import {ProfileDataForm} from './ProfileDataForm';
+import {SButton} from '../../SButton/SButton';
 
 type ProfileInfoPropsType = {
     isOwner: boolean
@@ -12,10 +13,11 @@ type ProfileInfoPropsType = {
     status: Nullable<string>
     updateStatus: (statusText: string) => void
     savePhoto: (photo: File) => void
+    saveProfileInfo: (profileInfo: any, setStatus: (status?: any) => void) => void
 }
 
 export const ProfileInfo: React.FC<ProfileInfoPropsType> =
-    ({isOwner, profile, status, updateStatus, savePhoto}) => {
+    ({isOwner, profile, status, updateStatus, savePhoto, saveProfileInfo}) => {
 
         const [editMode, setEditMode] = React.useState(false)
 
@@ -25,13 +27,18 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> =
             }
         }
 
+        const toggleEditMode = (value: boolean) => {
+          setEditMode(value)
+        }
+
         if (!profile) return (
             <Preloader/>
         )
 
         return (
             <div>
-                <img src={profile.photos.large ? profile.photos.large : avatar} alt={'avatar'}/>
+                <img src={profile.photos.large ? profile.photos.large : avatar}
+                     alt={'avatar'}/>
                 <div>
                     {isOwner && <input type="file" onChange={onProfilePhotoSelected}/>}
                 </div>
@@ -39,8 +46,15 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> =
 
                 ----------------------
 
+                {!editMode && <SButton onClick={() => toggleEditMode(true)}>Edit
+                info</SButton> }
+
+                ------------------
+
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
+                    ? <ProfileDataForm profile={profile}
+                                       saveProfileInfo={saveProfileInfo}
+                    toggleEditMode={toggleEditMode}/>
                     : <ProfileData profile={profile}/>
                 }
 

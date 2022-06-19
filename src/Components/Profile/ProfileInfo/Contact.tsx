@@ -2,7 +2,7 @@ import React from 'react';
 import {Nullable} from '../../../api/api';
 
 type ContactPropsType = {
-    contactTitle: Nullable<string>
+    contactTitle: string
     contactValue: Nullable<string>
 }
 

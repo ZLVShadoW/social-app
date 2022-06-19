@@ -1,5 +1,12 @@
-import {PhotosType, profileAPI, ProfileUserType, ResultCodeType, usersAPI} from '../../api/api';
+import {
+    PhotosType,
+    profileAPI,
+    ProfileUserType,
+    ResultCodeType,
+    usersAPI
+} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
+import {AppStateType} from './index';
 
 
 export type PostType = {
@@ -135,5 +142,20 @@ export const savePhoto = (photo: File) => async (dispatch: AppDispatchActionType
 
     if (res.data.resultCode === ResultCodeType.success) {
         dispatch(savePhotoSuccess(res.data.data.photos))
+    }
+}
+
+export const saveProfileInfo = (profileInfo: any, setStatus: (status?: any) => void) =>
+    async (dispatch: AppDispatchActionType, getState: () => AppStateType) => {
+
+    const ownerId = getState().auth.id
+    const res = await profileAPI.updateProfileInfo(profileInfo)
+
+    if (res.data.resultCode === ResultCodeType.success) {
+        //todo что с вск знаком, чтобы не делать проверку на существование, ибо тип id null | number
+        dispatch(getUserProfile(ownerId!))
+    } else {
+        setStatus(res.data.messages[0])
+        return Promise.reject()
     }
 }

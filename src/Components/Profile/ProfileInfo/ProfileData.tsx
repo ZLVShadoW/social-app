@@ -7,6 +7,7 @@ type ProfileDataPropsType = {
 }
 
 export const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
+
     return (
         <>
             <div>
@@ -16,7 +17,7 @@ export const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
                 About me: {profile.aboutMe}
             </div>
             <div>
-                Looking for a job: {profile.lookingForAJob}
+                Looking for a job: <strong>{profile.lookingForAJob ? 'yes' : 'no'}</strong>
             </div>
             <div>
                 Description: {profile.lookingForAJobDescription}

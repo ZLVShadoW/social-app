@@ -87,6 +87,7 @@ export const login = (data: { email: string, password: string, rememberMe: boole
             dispatch(getAuthUserData())
         } else {
             if (res.data.resultCode === ResultCodeType.captcha) {
+                //TODO подругивает :)))
                 dispatch(getCaptchaUrl())
             }
             dispatch(setAuthError(res.data.messages[0]))
