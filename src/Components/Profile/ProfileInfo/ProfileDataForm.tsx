@@ -1,6 +1,6 @@
 import {Field, Form, Formik, FormikHelpers} from 'formik';
 import React from 'react';
-import {Nullable, ProfileUserType} from '../../../api/api';
+import {Nullable, ProfileUserType} from '../../../types';
 import {SButton} from '../../SButton/SButton';
 
 

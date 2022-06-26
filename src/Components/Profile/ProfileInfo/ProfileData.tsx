@@ -1,5 +1,5 @@
-import {ProfileUserType} from '../../../api/api';
 import React from 'react';
+import { ProfileUserType } from '../../../types';
 import {Contact} from './Contact';
 
 type ProfileDataPropsType = {

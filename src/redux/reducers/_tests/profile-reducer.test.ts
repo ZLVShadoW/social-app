@@ -1,5 +1,5 @@
+import {ContactsType, PhotosType, ProfileUserType} from '../../../types';
 import profileReducer, {addPostAC, deletePost, ProfilePageType, setStatus, setUserProfile} from '../profile-reducer';
-import {ContactsType, PhotosType, ProfileUserType} from '../../../api/api';
 
 let initialState: ProfilePageType
 

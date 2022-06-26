@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import {Preloader} from '../Preloader/Preloader';
 import {compose} from 'redux';
-import {UserType} from '../../api/api';
 import {
     getCurrentPage, getFollowingProgress,
     getIsFetching,
@@ -17,6 +16,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from '../../redux/selectors/users-selectors';
+import { UserType } from '../../types';
 
 
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType

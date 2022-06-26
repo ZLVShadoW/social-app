@@ -1,5 +1,5 @@
 import React from 'react';
-import {Nullable} from '../../../api/api';
+import { Nullable } from '../../../types';
 
 type ContactPropsType = {
     contactTitle: string

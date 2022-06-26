@@ -6,13 +6,14 @@ import {AuthType, login} from '../../redux/reducers/auth-reducer';
 import {AppStateType} from '../../redux/reducers';
 import {Navigate} from 'react-router-dom';
 import {SButton} from '../SButton/SButton';
-import {Nullable} from '../../api/api';
+import { Nullable } from '../../types';
+
 
 type InitialValues = {
     email: string
     password: string
     rememberMe: boolean
-    captcha?: string
+    captcha: Nullable<string>
 }
 
 const SignupSchema = Yup.object().shape({
@@ -69,6 +70,7 @@ export const Login = () => {
                             <div>
                                 <label htmlFor={'captcha'}>Captcha:
                                     <Field type={'text'} name={'captcha'} id={'captcha'}/>
+                                    <ErrorMessage name={'captcha'} render={msg => (<span>{msg}</span>)}/>
                                 </label>
                             </div>
                             <div><img src={captchaUrl!} alt={'captcha'}/></div>

@@ -11,7 +11,7 @@ import {
 } from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
 import {compose} from 'redux';
-import {ProfileUserType} from '../../api/api';
+import { ProfileUserType } from '../../types';
 
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
@@ -53,7 +53,7 @@ type MapDispatchPropsType = {
     getStatus: (userId: number) => void
     updateStatus: (statusText: string) => void
     savePhoto: (photo: File) => void
-    saveProfileInfo: (profileInfo: any, setStatus: (status?: any) => void) => void
+    saveProfileInfo: (profileInfo: ProfileUserType, setStatus: (status?: any) => void) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {

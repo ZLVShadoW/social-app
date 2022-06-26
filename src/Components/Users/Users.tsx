@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {UserType} from '../../api/api';
+import { UserType } from '../../types';
 import {Pagination} from './Pagination';
 import {User} from './User';
 

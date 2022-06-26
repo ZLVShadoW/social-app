@@ -2,10 +2,11 @@ import React from 'react';
 import avatar from '../../../assets/img/user.png';
 import {Preloader} from '../../Preloader/Preloader';
 import {ProfileStatus} from './ProfileStatus';
-import {Nullable, ProfileUserType} from '../../../api/api';
 import {ProfileData} from './ProfileData';
 import {ProfileDataForm} from './ProfileDataForm';
 import {SButton} from '../../SButton/SButton';
+import {Nullable, ProfileUserType} from '../../../types';
+
 
 type ProfileInfoPropsType = {
     isOwner: boolean
@@ -13,7 +14,7 @@ type ProfileInfoPropsType = {
     status: Nullable<string>
     updateStatus: (statusText: string) => void
     savePhoto: (photo: File) => void
-    saveProfileInfo: (profileInfo: any, setStatus: (status?: any) => void) => void
+    saveProfileInfo: (profileInfo: ProfileUserType, setStatus: (status?: any) => void) => void
 }
 
 export const ProfileInfo: React.FC<ProfileInfoPropsType> =

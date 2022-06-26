@@ -1,6 +1,8 @@
-import {ResultCodeType, UserType, usersAPI} from '../../api/api';
+import {ResultCodeType} from '../../api/api';
 import { updatePropFollowed } from '../utils';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
+import {usersAPI} from '../../api/users-api';
+import {UserType} from '../../types';
 
 
 type UsersPageType = {
@@ -9,7 +11,7 @@ type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingProgress: Array<number | undefined>
+    followingProgress: Array<number | undefined> //массив id юзеров, когда быстро нескольких follow/unfollow
 }
 
 let initialState: UsersPageType = {

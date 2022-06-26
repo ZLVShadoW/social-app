@@ -1,5 +1,8 @@
-import {authAPI, Nullable, ResultCodeType, securityAPI} from '../../api/api';
+import {ResultCodeType} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
+import {authAPI} from '../../api/auth-api';
+import {securityAPI} from '../../api/security-api';
+import { Nullable } from '../../types';
 
 export type AuthType = {
     id: number | null
@@ -77,7 +80,7 @@ export const getAuthUserData = (): AppThunksType => async (dispatch: AppDispatch
     }
 }
 
-export const login = (data: { email: string, password: string, rememberMe: boolean, captcha?: string }): AppThunksType =>
+export const login = (data: { email: string, password: string, rememberMe: boolean, captcha: Nullable<string> }): AppThunksType =>
     async (dispatch: AppDispatchActionType) => {
         const {email, password, rememberMe, captcha} = data
 
@@ -87,8 +90,7 @@ export const login = (data: { email: string, password: string, rememberMe: boole
             dispatch(getAuthUserData())
         } else {
             if (res.data.resultCode === ResultCodeType.captcha) {
-                //TODO подругивает :)))
-                dispatch(getCaptchaUrl())
+               await dispatch(getCaptchaUrl())
             }
             dispatch(setAuthError(res.data.messages[0]))
         }

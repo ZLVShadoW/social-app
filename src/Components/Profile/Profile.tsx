@@ -1,7 +1,8 @@
 import React from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from '../MyPosts/MyPostsContainer';
-import {ProfileUserType} from '../../api/api';
+import { ProfileUserType } from '../../types';
+
 
 type ProfilePropsType = {
     isOwner: boolean
@@ -9,7 +10,7 @@ type ProfilePropsType = {
     status: string | null
     updateStatus: (statusText: string) => void
     savePhoto: (photo: File) => void
-    saveProfileInfo: (profileInfo: any, setStatus: (status?: any) => void) => void
+    saveProfileInfo: (profileInfo: ProfileUserType, setStatus: (status?: any) => void) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {

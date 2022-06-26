@@ -1,12 +1,8 @@
-import {
-    PhotosType,
-    profileAPI,
-    ProfileUserType,
-    ResultCodeType,
-    usersAPI
-} from '../../api/api';
+import {ResultCodeType} from '../../api/api';
 import {AppDispatchActionType, AppThunksType} from './actions-types';
 import {AppStateType} from './index';
+import {profileAPI} from '../../api/profile-api';
+import {Nullable, PhotosType, ProfileUserType} from '../../types';
 
 
 export type PostType = {
@@ -18,9 +14,9 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>;
     profile: ProfileUserType | null
-    status: string | null
+    // status: string | null
     // profile: Nullable<ProfileUserType>
-    // status: Nullable<string>
+    status: Nullable<string>
 }
 
 
@@ -70,10 +66,14 @@ const profileReducer = (state = initialState, action: ProfileReducerActionsType)
                 ...state,
                 //TODO проблема с null, пришлось поставить вск знак !
                 //без вскл проставлять вопр знак в типизции профиля (api), и в UI заки проставлять
+                // profile: {
+                //     ...state.profile!,
+                //     photos: action.photos
+                // }
                 profile: {
-                    ...state.profile!,
+                    ...state.profile,
                     photos: action.photos
-                }
+                } as ProfileUserType
             }
         }
         default:
@@ -117,7 +117,7 @@ export const savePhotoSuccess = (photos: PhotosType) =>
 // ----------- Thunk -----------
 
 export const getUserProfile = (userId: number): AppThunksType => async (dispatch: AppDispatchActionType) => {
-    const res = await usersAPI.getProfile(userId)
+    const res = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(res.data))
 }
 
@@ -145,7 +145,7 @@ export const savePhoto = (photo: File) => async (dispatch: AppDispatchActionType
     }
 }
 
-export const saveProfileInfo = (profileInfo: any, setStatus: (status?: any) => void) =>
+export const saveProfileInfo = (profileInfo: ProfileUserType, setStatus: (status?: any) => void) =>
     async (dispatch: AppDispatchActionType, getState: () => AppStateType) => {
 
     const ownerId = getState().auth.id
@@ -153,7 +153,12 @@ export const saveProfileInfo = (profileInfo: any, setStatus: (status?: any) => v
 
     if (res.data.resultCode === ResultCodeType.success) {
         //todo что с вск знаком, чтобы не делать проверку на существование, ибо тип id null | number
-        dispatch(getUserProfile(ownerId!))
+        // dispatch(getUserProfile(ownerId!))
+        if (ownerId !== null) {
+            dispatch(getUserProfile(ownerId))
+        } else {
+            throw new Error('userId can not be null')
+        }
     } else {
         setStatus(res.data.messages[0])
         return Promise.reject()

@@ -1,11 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
-import {UserType} from '../../api/api';
+import { UserType } from '../../types';
 
 import styles from './User.module.scss'
-
 import imgSrc from '../../assets/img/user.png';
+
 
 type UserPropsType = {
     user: UserType

@@ -46,11 +46,12 @@ export const Pagination: React.FC<PaginationPropsType> =
                 margin: '10px 0',
                 background: '#ddd',
                 display: 'flex',
-                justifyContent:'center',
+                justifyContent: 'center',
                 gap: 5,
                 height: 24,
             }}>
-                {portionNum > 1 && <button onClick={onPortionNumDecHandler}> {'<<'} </button>}
+                {portionNum > 1 &&
+                    <button onClick={onPortionNumDecHandler}> {'<<'} </button>}
                 {pages
                     .filter(page => page >= leftLimit && page <= rightLimit)
                     .map(page => (
@@ -61,7 +62,8 @@ export const Pagination: React.FC<PaginationPropsType> =
                         </button>
                     ))
                 }
-                {portionsCount > portionNum && <button onClick={onPortionNumIncHandler}> {'>>'} </button>}
+                {portionsCount > portionNum &&
+                    <button onClick={onPortionNumIncHandler}> {'>>'} </button>}
             </div>
         )
     }
