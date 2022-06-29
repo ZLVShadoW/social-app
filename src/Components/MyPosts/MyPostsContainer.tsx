@@ -15,9 +15,9 @@ type MapDispatchPropsType = {
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-  return {
-      posts: state.profilePage.posts
-  }
+    return {
+        posts: state.profilePage.posts
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {

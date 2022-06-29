@@ -56,6 +56,6 @@ export default dialogsReducer;
 
 export type DialogsReducerActionsType = AddMessageActionType
 
-type AddMessageActionType = ReturnType<typeof addMessageAC>
+type AddMessageActionType = ReturnType<typeof addMessage>
 
-export const addMessageAC = (messageText: string) => ({type: 'DIALOGS/ADD-MESSAGE', messageText} as const)
+export const addMessage = (messageText: string) => ({type: 'DIALOGS/ADD-MESSAGE', messageText} as const)

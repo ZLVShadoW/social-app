@@ -11,7 +11,7 @@ import {
 } from '../../redux/reducers/profile-reducer';
 import {withCustomWithRouter} from '../../HOCS/withCustomWithRouter';
 import {compose} from 'redux';
-import { ProfileUserType } from '../../types';
+import {Nullable, ProfileUserType} from '../../types';
 
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
@@ -29,7 +29,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
 
     refreshProfile() {
         let userId = Number(this.props.params.userId)
-        userId = userId ? userId : 23354
+        userId = userId ? userId : this.props.authId!
 
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
@@ -46,6 +46,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType & { par
 type MapStatePropsType = {
     profile: ProfileUserType | null
     status: string | null
+    authId: Nullable<number>
 }
 
 type MapDispatchPropsType = {
@@ -59,7 +60,8 @@ type MapDispatchPropsType = {
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authId: state.auth.id
     }
 }
 

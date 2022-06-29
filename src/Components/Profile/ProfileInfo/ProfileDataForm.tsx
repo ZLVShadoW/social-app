@@ -28,10 +28,10 @@ type ProfileDataFormPropsType = {
 }
 
 export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({
-                                                                        profile,
-                                                                        saveProfileInfo,
-                                                                        toggleEditMode
-                                                                    }) => {
+    profile,
+    saveProfileInfo,
+    toggleEditMode
+}) => {
 
     const initialValues: InitialValuesType = {
         fullName: profile.fullName,
@@ -50,7 +50,10 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({
         }
     }
 
-    const onSubmit = (values: InitialValuesType, {setStatus, setSubmitting}: FormikHelpers<InitialValuesType>) => {
+    const onSubmit = (
+        values: InitialValuesType,
+        {setStatus, setSubmitting}: FormikHelpers<InitialValuesType>
+    ) => {
         //todo ignore
         //@ts-ignore
         saveProfileInfo(values, setStatus).then(() => {
@@ -62,7 +65,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({
     return (
         <div>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
-                { (formikProps) => (
+                {(formikProps) => (
                     <Form>
                         <div>
                             <label htmlFor={'fullName'}>Full name:

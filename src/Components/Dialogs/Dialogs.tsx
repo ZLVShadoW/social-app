@@ -6,16 +6,15 @@ import {DialogType, MessageType} from '../../redux/reducers/dialogs-reducer';
 import {DialogFormTextarea} from './DialogFormTextarea';
 
 type DialogsPropsType = {
-    addMessage: () => void;
     dialogs: Array<DialogType>;
     messages: Array<MessageType>;
-    isAuth: boolean
+    addMessage: () => void;
 }
 
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogs, messages, addMessage}) => {
 
-    const dialogsEl = props.dialogs.map(dialog => <DialogItem key={dialog.id} {...dialog} />)
-    const messagesEl = props.messages.map(message => <Message key={message.id} message={message.message}/>)
+    const dialogsEl = dialogs.map(dialog => <DialogItem key={dialog.id} {...dialog} />)
+    const messagesEl = messages.map(message => <Message key={message.id} message={message.message}/>)
 
     return (
         <div className={cn.dialogs}>
@@ -29,7 +28,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 <div>
 
                     {/*//TODO вариант форму родителем сделать; дети (children) для сборки формы*/}
-                    <DialogFormTextarea addMessage={props.addMessage} />
+                    <DialogFormTextarea addMessage={addMessage} />
                 </div>
             </div>
         </div>

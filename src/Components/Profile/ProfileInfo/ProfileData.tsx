@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfileUserType } from '../../../types';
+import {ContactsType, ProfileUserType} from '../../../types';
 import {Contact} from './Contact';
 
 type ProfileDataPropsType = {
@@ -17,7 +17,8 @@ export const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
                 About me: {profile.aboutMe}
             </div>
             <div>
-                Looking for a job: <strong>{profile.lookingForAJob ? 'yes' : 'no'}</strong>
+                Looking for a
+                job: <strong>{profile.lookingForAJob ? 'yes' : 'no'}</strong>
             </div>
             <div>
                 Description: {profile.lookingForAJobDescription}
@@ -28,7 +29,8 @@ export const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
                     {
                         Object.keys(profile.contacts).map(key => {
                             return (
-                                <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                                <Contact key={key} contactTitle={key}
+                                         contactValue={profile.contacts[key as keyof ContactsType]}/>
                             )
                         })
                     }

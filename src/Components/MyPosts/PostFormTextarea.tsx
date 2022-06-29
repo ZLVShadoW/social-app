@@ -6,13 +6,13 @@ type PostFormTextareaPropsType = {
     addPost: (text: string) => void
 }
 
-export const PostFormTextarea: React.FC<PostFormTextareaPropsType> = (props) => {
+export const PostFormTextarea: React.FC<PostFormTextareaPropsType> = ({addPost}) => {
     const formik = useFormik({
         initialValues: {
             post: ''
         },
         onSubmit: (values, {resetForm, setErrors}) => {
-            props.addPost(values.post)
+            addPost(values.post)
             // formik.resetForm({}) без принятия resetForm параметром после value
             // resetForm({})
             resetForm({values: {post: ''}})
